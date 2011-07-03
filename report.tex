@@ -1,0 +1,54 @@
+
+\documentclass[a4paper,11pt]{article}
+
+% Chargement des packages %
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{color}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}	% Pour la coloration syntaxique
+\usepackage{graphicx}	% Pour les images
+
+
+\title{Automatic documents classification\\
+SortDC}
+\author{Godefroy de Compreignac \and Ronan Letellier}
+\date{July 5, 2011}
+
+
+
+\begin{document}
+
+% Titre du document %
+
+\maketitle
+
+\setcounter{page}{0}
+\thispagestyle{empty}
+
+
+% Table des matières %
+
+\clearpage
+\tableofcontents{}
+
+
+% Sections %
+
+\clearpage
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+
+\clearpage
+\section*{Bibliography}
+\addcontentsline{toc}{section}{Bibliography}
+
+
+\end{document}
