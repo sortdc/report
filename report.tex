@@ -292,19 +292,6 @@ instance).
 
 \subsubsection{RESTful API}
 
-<<<<<<< HEAD
-\subsubsection{YAML configuration and DBMS}
-
-The whole application behavior can be managed through one simple YAML file.
-It offers the possibility to configure webservice host and port, log verbose
-and a path to a log file and classifiers features. In this classifier section
-one can indicate the classifier's name and language, its DBMS as well as
-database infos (username, password, host, port), wether or not it should be
-using stemming, wether or not it should use words as tokens,  words minimum
-length to be included in the classification process, tokens maximum length,
-the kind of tokens it should extract (n-grams words or characters) and a list
-or path to a file listing different stop words.
-=======
 Pour que l'application soit utilisable à distance par n'importe quel site web
 ou application quel que soit le langage utilisé, nous avons conçu une API
 REST. Cette API respecte les recommandations RESTful et fournit et accepte des
@@ -334,10 +321,17 @@ suffit d'appeler http://localhost:1337/classifiers/\{classifier\_id\}/categories
 en GET en donnant le texte au format voulu (XML, JSON ou brut) en données
 après les en-têtes HTTP.
 
+\subsubsection{YAML configuration and DBMS}
 
-\subsubsection{DBMS}
->>>>>>> fd0a27dcca00ff8cb958cd92b0e35d35d6164f70
-
+The whole application behavior can be managed through one simple YAML file.
+It offers the possibility to configure webservice host and port, log verbose
+and a path to a log file and classifiers features. In this classifier section
+one can indicate the classifier's name and language, its DBMS as well as
+database infos (username, password, host, port), wether or not it should be
+using stemming, wether or not it should use words as tokens,  words minimum
+length to be included in the classification process, tokens maximum length,
+the kind of tokens it should extract (n-grams words or characters) and a list
+or path to a file listing different stop words.
 
 \subsection{Some tests}
     
