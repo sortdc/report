@@ -252,6 +252,12 @@ sum of occurences in categories).
 Sorting documents is not a one step process. We decided to go for texts
 stemming and tokenization.
 
+In order to make our programm easy to use or try, we designed a RESTful API.
+As said previously, we wanted it to be user friendly and portable, that's why
+we made it DMBS compliant, making it possible to use it with MySQL databases
+as well as MongoDB ones, and provided a YAML configuration file so that the
+application behavior can be easily modified.
+
 \subsubsection{Stemming}
 
 Stemming seemed to be the hardest part, for we had to take in consideration
@@ -285,7 +291,17 @@ instance).
 
 \subsubsection{RESTful API}
 
-\subsubsection{DBMS}
+\subsubsection{YAML configuration and DBMS}
+
+The whole application behavior can be managed through one simple YAML file.
+It offers the possibility to configure webservice host and port, log verbose
+and a path to a log file and classifiers features. In this classifier section
+one can indicate the classifier's name and language, its DBMS as well as
+database infos (username, password, host, port), wether or not it should be
+using stemming, wether or not it should use words as tokens,  words minimum
+length to be included in the classification process, tokens maximum length,
+the kind of tokens it should extract (n-grams words or characters) and a list
+or path to a file listing different stop words.
 
 
 \subsection{Some tests}
