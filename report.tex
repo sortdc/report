@@ -291,18 +291,17 @@ instance).
 
 \subsection{Some tests}
     
-We tested our application on a set of 20 000 pre-sorted text documents. We
-first trained 18 997 documents from that corpus then tried to categorize
+We tested our application on a set of 20 000 pre-sorted text documents
+\footnote{20 Newsgroups data set: \url{http://people.csail.mit.edu/jrennie/20Newsgroups/}}.
+We first trained 18 997 documents from that corpus then tried to categorize
 accuratly the remaining 1000. Here are the results of these tests :
 
-With Mysql:
-
-Training: 186 mins (about 102 documents per minute)
+With Mysql:\\
+Training: 186 mins (about 102 documents per minute)\\
 Sorting: 10 mins 11 s
 
-With MongoDB:
-
-Training: 128 mins (about 148 documents per minute)
+With MongoDB:\\
+Training: 128 mins (about 148 documents per minute)\\
 Sorting: 6 mins 21 s
 
 The accuracy rate for the sorting part was 81.5\%.
