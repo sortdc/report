@@ -141,13 +141,26 @@ Stemming seemed to be the hardest part, for we had to take in consideration
 that texts may be in different languages. Finding a word's root depends on
 text language and for we cannot speak whole of them, using a pre-existing
 solution appeared to be the best solution to us.
+
+We needed stemming for our algorithm is based on tokens probabilities.
+Therefore, words could not be considered independantly for it may distort
+the results. Indeed, the application had to understand that the word "cooked"
+and the word "cooking" belong to the same category for instance.
+
 Various open source applications use stemming, but a lot of them use it for
 a specific purpose in a specific language (for instance, Sphinx
 full-text-search). Snowball Stemmer, on the other hand, has specialized in
-stemming text documents only. Therefore, the available application supports
-more than 15 latin languages.
+stemming text documents only and provides a very complete set of supported
+languages (more than 15 latin languages).
+
+\subsubsection{Tokenization}
+
 Concerning tokenization, the work seemed a lot more doable, and as we
-thought, we couldn't find any interesting tokenization application.
+thought, we couldn't find any interesting tokenization application. We
+consequently decided to programm our own tokenization class.
+Tokenization allows us to split a text into "tokens" (words that have
+been stemmed and cut) that will be used to determine in which category the
+document has to be sorted.
 
 \subsection{Some tests}
     
