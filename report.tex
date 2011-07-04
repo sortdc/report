@@ -176,7 +176,7 @@ category. Thus, we have:
 \begin{equation}
     \forall (d_i, c_i) \in D \times C,\ 
     \phi(d_i, c_i)
-    = \sum_{t_j}^{|d_i|} (P(t_j | d_i) P(c_i | t_j))
+    = \sum_{j=1}^{|d_i|} (P(t_j | d_i) P(c_i | t_j))
 \end{equation}
 
 We apply Bayes theorem:
@@ -192,7 +192,7 @@ We get:
 \begin{equation}\label{eq:final_prob}
     \forall (d_i, c_i) \in D \times C,\ 
     \phi(d_i, c_i)
-    = \sum_{t_j}^{|d_i|} \frac{P(t_j | d_i) P(t_j | c_i) P(c_i)}{P(t_j)}
+    = \sum_{j=1}^{|d_i|} \frac{P(t_j | d_i) P(t_j | c_i) P(c_i)}{P(t_j)}
 \end{equation}
 
 To calculate this, we will need to replace probabilities with tokens number of
@@ -219,18 +219,18 @@ The equation (\ref{eq:final_prob}) leads to:
 \begin{eqnarray}\label{eq:final}
     \forall (d_i, c_i) \in D \times C,\ 
     \phi(d_i, c_i)
-    &=& \sum_{t_j}^{|d_i|} (
+    &=& \sum_{j=1}^{|d_i|} (
         \frac{n_{t_j \in d_i}}{n_{tokens \in d_i}}
         \frac{n_{t_j \in c_i}}{n_{tokens \in c_i}}
         \frac{n_{tokens \in c_i}}{n_{tokens \in T}}
         \frac{n_{tokens \in T}}{n_{t_j \in T}}
     ) \nonumber \\
-    &=& \sum_{t_j}^{|d_i|} (
+    &=& \sum_{j=1}^{|d_i|} (
         \frac{n_{t_j \in d_i}}{n_{tokens \in d_i}}
         \frac{n_{t_j \in c_i}}{n_{t_j \in T}}
     ) \nonumber \\
     &=& \frac{1}{n_{tokens \in d_i}}
-        \sum_{t_j}^{|d_i|}
+        \sum_{j=1}^{|d_i|}
         \frac{n_{t_j \in d_i} n_{t_j \in c_i}}{n_{t_j \in T}}
 \end{eqnarray}
 
