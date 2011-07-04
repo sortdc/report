@@ -87,10 +87,6 @@ formulaire de contact.
 
 \section{Studied technologies}
 
-Sorting documents is not a one step process. We decided to go for texts
-stemming and tokenization. Therefore, we tried to find existing solutions that
-would help us to do so.
-
 \subsection{Existing solutions}
     
 \subsubsection{Apache Mahout}
@@ -123,6 +119,23 @@ expectations.
 \section{Our application}
 \subsection{Quick overview}
 \subsection{Features}
+
+Sorting documents is not a one step process. We decided to go for texts
+stemming and tokenization. Therefore, we tried to find existing solutions that
+would help us to do so.
+
+\subsubsection{Stemming}
+
+Stemming seemed to be the hardest part, for we had to take in consideration
+that texts may be in different languages. Finding a word's root depends on
+text language and for we cannot speak whole of them, using a pre-existing
+solution appeared to be the best solution to us.
+Various open source applications use stemming, but a lot of them use it for
+a specific purpose in a specific language (for instance, Sphinx
+full-text-search). Snowball Stemmer, on the other hand, has specialized in
+stemming text documents only. Therefore, the available application supports
+more than 15 latin languages.
+
 \subsection{Some tests}
     
 
