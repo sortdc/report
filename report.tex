@@ -275,6 +275,7 @@ languages (more than 15 latin languages).
 Concerning tokenization, the work seemed a lot more doable, and as we
 thought, we couldn't find any interesting tokenization application. We
 consequently decided to programm our own tokenization class.
+
 Tokenization allows us to split a text into "tokens" (words that have
 been stemmed and cut) or n-grams words or letters (a set of n words or
 letters) that will be used to determine in which category the document has to
@@ -284,6 +285,36 @@ exemple) or words minimum length (to exclude short prepositions for
 instance).
 
 \subsubsection{RESTful API}
+
+Pour que l'application soit utilisable à distance par n'importe quel site web
+ou application quel que soit le langage utilisé, nous avons conçu une API
+REST. Cette API respecte les recommandations RESTful et fournit et accepte des
+données en JSON ou XML.
+
+Nous avons choisi la bibliothèque Jersey\footnote{\url{http://jersey.java.net/}}
+comme serveur web intégré à notre application pour fournir l'API.
+~\\
+
+Les URLs de l'API sont de la forme:\\
+http://localhost:1337/classifiers \\
+http://localhost:1337/classifiers/\{classifier\_id\} \\
+http://localhost:1337/classifiers/\{classifier\_id\}/documents \\
+http://localhost:1337/classifiers/\{classifier\_id\}/documents/\{document\_id\} \\
+http://localhost:1337/classifiers/\{classifier\_id\}/categories \\
+http://localhost:1337/classifiers/\{classifier\_id\}/categories/\{category\_id\} \\
+http://localhost:1337/classifiers/\{classifier\_id\}/categories/\{category\_id\}/documents \\
+~\\
+
+Les méthodes GET, POST, PUT et DELETE permettent de récupérer, ajouter,
+modifier et supprimer des classifiers, catégories et documents. Les formats
+d'entrée et de sortie sont donnés par les en-têtes \textit{Content-Type} et
+\textit{Accept}.
+
+Pour calculer les probabilités des catégories pour un texte non entrainé, il
+suffit d'appeler http://localhost:1337/classifiers/\{classifier\_id\}/categories
+en GET en donnant le texte au format voulu (XML, JSON ou brut) en données
+après les en-têtes HTTP.
+
 
 \subsubsection{DBMS}
 
@@ -305,13 +336,18 @@ Sorting: 6 mins 21 s
 
 The accuracy rate for the sorting part was 81.5\%.
 
+
 \section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
+
 
 
 \clearpage
 \section*{Bibliography}
 \addcontentsline{toc}{section}{Bibliography}
+
+\textbf{RESTful} \\
+\url{http://en.wikipedia.org/wiki/Representational\_State\_Transfer\#RESTful\_web\_services}
 
 
 \end{document}
