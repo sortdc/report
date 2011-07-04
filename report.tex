@@ -292,16 +292,15 @@ instance).
 
 \subsubsection{RESTful API}
 
-Pour que l'application soit utilisable à distance par n'importe quel site web
-ou application quel que soit le langage utilisé, nous avons conçu une API
-REST. Cette API respecte les recommandations RESTful et fournit et accepte des
-données en JSON ou XML.
+In order to make the application reachable and usable by any website or
+programm whatever the language used, we designed a REST API that respects
+RESTfull recommandations and accepts JSON and XML data.
 
-Nous avons choisi la bibliothèque Jersey\footnote{\url{http://jersey.java.net/}}
-comme serveur web intégré à notre application pour fournir l'API.
+We chose the Jersey\footnote{\url{http://jersey.java.net/}} library as a
+web server directly integrated to our application to provide the API.
 ~\\
 
-Les URLs de l'API sont de la forme:\\
+The API URLs are shaped as followed:\\
 http://localhost:1337/classifiers \\
 http://localhost:1337/classifiers/\{classifier\_id\} \\
 http://localhost:1337/classifiers/\{classifier\_id\}/documents \\
@@ -311,15 +310,15 @@ http://localhost:1337/classifiers/\{classifier\_id\}/categories/\{category\_id\}
 http://localhost:1337/classifiers/\{classifier\_id\}/categories/\{category\_id\}/documents \\
 ~\\
 
-Les méthodes GET, POST, PUT et DELETE permettent de récupérer, ajouter,
-modifier et supprimer des classifiers, catégories et documents. Les formats
-d'entrée et de sortie sont donnés par les en-têtes \textit{Content-Type} et
-\textit{Accept}.
+GET, POST, PUT and DELETE methods allow the user to access, add, modify and
+delete classifiers, categories and documents. Input and output formats are
+given by \textit{Content-Type} and
+\textit{Accept} headers.
 
-Pour calculer les probabilités des catégories pour un texte non entrainé, il
-suffit d'appeler http://localhost:1337/classifiers/\{classifier\_id\}/categories
-en GET en donnant le texte au format voulu (XML, JSON ou brut) en données
-après les en-têtes HTTP.
+To calculate categories probabilities for an untrained document, we simply
+call http://localhost:1337/classifiers/\{classifier\_id\}/categories with the
+GET method and give the text in text/plain, XML or JSON format right after the
+HTTP headers.
 
 \subsubsection{YAML configuration and DBMS}
 
