@@ -83,7 +83,6 @@ makes it possible for instance to categorize blogs articles, detect the
 language of texts written by different users on a website or to determine
 wether or not a comment or an inscription form is a spam.
 
-
 \section{Studied technologies}
 
 \subsection{Existing solutions}
@@ -125,28 +124,26 @@ expectations.
 
 \subsection{Considerations}
 
-Pour notre application, nous avons choisi d'utiliser le théorème de Bayes,
-qui est le plus éprouvé et le moins consommateur de ressources serveur.
+We chose Bayes theorem for our application for it is the most used method for
+classification programms and it consumes a lot less server ressources.
 
-Les utilisations du théorème de Bayes peuvent fortement varier d'une
-interprétation à une autre. Plusieurs interprétations peuvent donner des
-résultats et des complexités de calcul très différentes.
+Bayes theorem usages can strongly vary depending on its interpretation.
+Consequently, the calculations complexity and the results can be very
+different.
 
-Nous utilisons une approche probabiliste pour déterminer si un document
-appartient à une catégorie ou à une autre. Pour cela, il faut choisir une
-représentation du document que l'on peut analyser statistiquement. Un document
-peut se décomposer en paragraphes, en phrases, en groupes de mots, en mots, en
-n-grams de lettres, etc. On pourrait aussi introduire dans l'analyse les
-positions relatives des mots par exemple.
+We are using a probability approach to determine wether a document belongs to
+a category or another. To that end, we need a representation of the document
+that we can analyse statisticly. A document can be broken down into
+paragraphs, sentences, groups of words, n-grams letters, etc. We also could
+consider in the analysis words relative positions to each other for instance.
 
-Nous avons décidé de décomposer un document en «~tokens~» et de ne pas tenir
-compte de leurs positions relatives. Les tokens peuvent être des mots, des
-racines de mots (stemming), ou des n-grams de mots ou de lettres.
-
+We decided to split a document in «~tokens~» without taking account of their
+relative positions. Tokens can be words, words roots (stemming) or n-grams
+words or letters.
 
 \subsection{Bayes' theorem}
 
-La forme simple du théorème de Bayes, que nous allons utiliser, est :
+Bayes theorem simple form, that we will be using, is the following :
 
 \begin{equation}
     P(A| B) = \frac{P(B | A) P(A)}{P(B)}
@@ -155,25 +152,26 @@ La forme simple du théorème de Bayes, que nous allons utiliser, est :
 
 \subsection{Algorithm}
 
-On considère:
+Considering:
 
-$C = \{c_1, ..., c_{|C|}\}$ l'ensemble des catégories de notre classifier
+$C = \{c_1, ..., c_{|C|}\}$ our classifier's categories
 
-$T = \{t_1, ..., t_{|T|}\}$ l'ensemble des tokens de tous les documents dans la base de données
+$T = \{t_1, ..., t_{|T|}\}$ all tokens from all documents stored in the database
 
-$D = \{d_1, ..., d_{|D|}\}$ l'ensemble des documents dans la base de données
+$D = \{d_1, ..., d_{|D|}\}$ all documents stored in the database
 
-$\forall d_i \in D,\ d_i = \{t_1, ..., t_{|d_i|}\}$ l'ensemble des tokens d'un document $d_i$
+$\forall d_i \in D,\ d_i = \{t_1, ..., t_{|d_i|}\}$ all tokens from a document $d_i$
 ~\\
 
-On va définir une fonction $\phi : D \times C \rightarrow P$ qui va assigner une probabilité à chaque couple
+Let's define the function $\phi : D \times C \rightarrow P$ that will assign
+a probability to each couple
 $(d_i, c_i) \in D \times C$.
 
-Un document étant en général unique, on ne peut pas lui appliquer directement
-le théorème de Bayes. Il faut appliquer le théorème à ses tokens. Pour notre
-algorithme, on va établir que la probabilité qu'a un document d'appartenir à
-une catégorie est égale à la moyenne des probabilités qu'ont ses tokens
-d'appartenir à la catégorie. On pose donc:
+A document being most of the time unique, we cannot apply Bayes theorem
+directly. We have to apply it to its tokens. For our algorithm, we are going
+to establish that the probability that a document has to belong to a category
+equals the average probability that its tokens have to belong to that
+category. Thus, we have:
 
 \begin{equation}
     \forall (d_i, c_i) \in D \times C,\ 
@@ -181,7 +179,7 @@ d'appartenir à la catégorie. On pose donc:
     = \sum_{t_j}^{|d_i|} (P(t_j | d_i) P(c_i | t_j))
 \end{equation}
 
-On applique le théorème de Bayes:
+We apply Bayes theorem:
 
 \begin{equation}
     \forall (c_i, t_j) \in C \times T,\ 
@@ -189,7 +187,7 @@ On applique le théorème de Bayes:
     = \frac{P(t_j | c_i) P(c_i)}{P(t_j)}
 \end{equation}
 
-On obtient:
+We get:
 
 \begin{equation}\label{eq:final_prob}
     \forall (d_i, c_i) \in D \times C,\ 
@@ -197,27 +195,26 @@ On obtient:
     = \sum_{t_j}^{|d_i|} \frac{P(t_j | d_i) P(t_j | c_i) P(c_i)}{P(t_j)}
 \end{equation}
 
-Pour calculer cela, on va avoir besoin de remplacer les probabilité par des
-nombres d'occurrences de tokens. On pose:
+To calculate this, we will need to replace probabilities with tokens number of
+occurences. We have:
 
-$n_{tokens \in T} = |T|$ le nombre total de tokens différents (dans la base de
-données).
+$n_{tokens \in T} = |T|$ the total number of different tokens stored in the
+database.
 
-$n_{t_i \in T}$ le nombre total d'occurrences du token $t_i$ (dans la base de
-données).
+$n_{t_i \in T}$ the total number of occurence of token $t_i$ stored in the
+database.
 
-$n_{tokens \in c_i}$ le nombre de tokens différents dans la catégorie $c_i$
-(dans la base de données).
+$n_{tokens \in c_i}$ the number of different tokens in category $c_i$ stored
+in the database.
 
-$n_{t_i \in c_i}$ le nombre d'occurrences du token $t_i$ dans la catégorie
-$c_i$ (dans la base de données).
+$n_{t_i \in c_i}$ the number of occurences of token $t_i$ in category $c_i$
+in the database.
 
-$n_{tokens \in d_i} = |d_i|$ le nombre de tokens différents dans le document $d_i$.
+$n_{tokens \in d_i} = |d_i|$ the number of different tokens in document $d_i$.
 
-$n_{t_i \in d_i}$ le nombre d'occurrences du token $t_i$ dans le document
-$d_i$.
+$n_{t_i \in d_i}$ the number of occurences of token $t_i$ in document $d_i$.
 
-L'équation (\ref{eq:final_prob}) donne donc:
+The equation (\ref{eq:final_prob}) leads to:
 
 \begin{eqnarray}\label{eq:final}
     \forall (d_i, c_i) \in D \times C,\ 
@@ -237,16 +234,14 @@ L'équation (\ref{eq:final_prob}) donne donc:
         \frac{n_{t_j \in d_i} n_{t_j \in c_i}}{n_{t_j \in T}}
 \end{eqnarray}
 
-L'équation (\ref{eq:final}) finale est relativement simple et directement
-utilisable dans une application pour calculer la probabilité qu'a un document
-d'appartenir à une catégorie.
+The final equation (\ref{eq:final}) is pretty simple and directly usable in
+an application to calculate the probabilty that a document has to belong to
+a category.
 
-Lors de l'entraînement de l'application, c'est-à-dire lorsqu'on assigne
-manuellement des documents aux catégories, il suffira de stocker le nombre
-d'occurrences de chaque token pour chaque catégorie (le nombre de total
-d'occurrences d'un token peut alors être retrouvé par la sommes des nombres
-d'occurrences dans les catégories).
-
+During the application training phase, we manually assign documents to
+categories. We will then store the number of occurences of each token in each
+category (the total number of a token's occurences can then be found as the
+sum of occurences in categories).
 
 \section{Our application}
 
@@ -257,8 +252,6 @@ d'occurrences dans les catégories).
 Sorting documents is not a one step process. We decided to go for texts
 stemming and tokenization. Therefore, we tried to find existing solutions that
 would help us to do so.
-
-\subsubsection{Tokenization}
 
 \subsubsection{Stemming}
 
@@ -284,11 +277,12 @@ Concerning tokenization, the work seemed a lot more doable, and as we
 thought, we couldn't find any interesting tokenization application. We
 consequently decided to programm our own tokenization class.
 Tokenization allows us to split a text into "tokens" (words that have
-been stemmed and cut) that will be used to determine in which category the
-document has to be sorted. It is possible to chose tokens maximum length,
-stop words (words that may not be significants, such as common articles or
-pronouns for exemple) or words minimum length (to exclude short prepositions
-for instance).
+been stemmed and cut) or n-grams words or letters (a set of n words or
+letters) that will be used to determine in which category the document has to
+ be sorted. It is possible to chose tokens maximum length, stop words (words
+that may not be significants, such as common articles or pronouns for
+exemple) or words minimum length (to exclude short prepositions for
+instance).
 
 \subsubsection{RESTful API}
 
