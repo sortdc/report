@@ -63,21 +63,13 @@ application using this algorithm to actually accomplish the task.
 
 Our intention was to conceive an Open Source product that would be easy to
 configure and use, as we could not find an existing one. To reach these
-requirements, we had to be able to provide a REST API that would allow anyone
+requirements, we had to be able to provide a RESTful\footnote{Representational
+State Transfer} API\footnote{Application Programming Interface} that would allow anyone
 to try and use our software features. To make it really flexible, we also
 wanted it to work on different DBMS\footnote{Data Base Management System}.
 
 
 \subsection{Why do we think this is useful}
-
-As said previously, we have not been able to find any Open Source software
-matching all our expectations.
-
-	**description d'un ou deux outils avec leurs défauts**
-    
-Apache Mahout
-
-RapidMiner
 
 While the internet content keeps growing, we need powerful devices to keep
 some order in all human oriented items. Automatically understanding what a
@@ -85,6 +77,12 @@ text document is about allows search engines to determine wether a website
 suits one's key words or not, our mailboxes to send junk mail directly in the
 spam folder, and so on. However, such automated softwares are not available to
 anyone, and we still have to order our own web contents by hand.
+
+En fonctionnant côté serveur et grâce à une API RESTful, la solution que nous
+proposons permet par exemple de catégoriser des articles de blogs, de détecter
+la langues de textes écrits par des internautes sur un site, ou encore de
+détecter les spams envoyés dans les commentaires d'un blog ou dans un
+formulaire de contact.
 
 
 \section{Studied technologies}
@@ -94,15 +92,35 @@ stemming and tokenization. Therefore, we tried to find existing solutions that
 would help us to do so.
 
 \subsection{Existing solutions}
+    
+\subsubsection{Apache Mahout}
+
+Apache Mahout est un outil open source de la communauté Apache, conçu pour
+être scalable et fournir des implémentations de plusieurs algorithmes utilisés
+en machine learning, comme les K-means, Naive Bayes classifier, les
+recommandations, etc.
+
+Mahout est une application Java et fonctionne côté serveur sur des clusters
+Hadoop. Son utilisation est adaptée pour des calculs à grande échelle sur
+plusieurs serveurs. L'installation n'est pas aisée, car il faut compiler,
+installer et configurer Hadoop et Mahout pour la faire fonctionner.
+
+
+\subsubsection{RapidMiner}
+
 \subsection{Our selection}
+
+We have not been able to find any Open Source software matching all our
+expectations.
 
 
 \section{Bayes classifier}
+
 \subsection{Considerations}
 \subsection{Algorithm}
 
 
-\section{The application}
+\section{Our application}
 \subsection{Quick overview}
 \subsection{Features}
 \subsection{Some tests}
