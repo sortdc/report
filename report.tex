@@ -124,16 +124,141 @@ expectations.
 \section{Bayes classifier}
 
 \subsection{Considerations}
+
+Pour notre application, nous avons choisi d'utiliser le théorème de Bayes,
+qui est le plus éprouvé et le moins consommateur de ressources serveur.
+
+Les utilisations du théorème de Bayes peuvent fortement varier d'une
+interprétation à une autre. Plusieurs interprétations peuvent donner des
+résultats et des complexités de calcul très différentes.
+
+Nous utilisons une approche probabiliste pour déterminer si un document
+appartient à une catégorie ou à une autre. Pour cela, il faut choisir une
+représentation du document que l'on peut analyser statistiquement. Un document
+peut se décomposer en paragraphes, en phrases, en groupes de mots, en mots, en
+n-grams de lettres, etc. On pourrait aussi introduire dans l'analyse les
+positions relatives des mots par exemple.
+
+Nous avons décidé de décomposer un document en «~tokens~» et de ne pas tenir
+compte de leurs positions relatives. Les tokens peuvent être des mots, des
+racines de mots (stemming), ou des n-grams de mots ou de lettres.
+
+
+\subsection{Bayes' theorem}
+
+La forme simple du théorème de Bayes, que nous allons utiliser, est :
+
+\begin{equation}
+    P(A| B) = \frac{P(B | A) P(A)}{P(B)}
+\end{equation}
+
+
 \subsection{Algorithm}
+
+On considère:
+
+$C = \{c_1, ..., c_{|C|}\}$ l'ensemble des catégories de notre classifier
+
+$T = \{t_1, ..., t_{|T|}\}$ l'ensemble des tokens de tous les documents dans la base de données
+
+$D = \{d_1, ..., d_{|D|}\}$ l'ensemble des documents dans la base de données
+
+$\forall d_i \in D,\ d_i = \{t_1, ..., t_{|d_i|}\}$ l'ensemble des tokens d'un document $d_i$
+~\\
+
+On va définir une fonction $\phi : D \times C \rightarrow P$ qui va assigner une probabilité à chaque couple
+$(d_i, c_i) \in D \times C$.
+
+Un document étant en général unique, on ne peut pas lui appliquer directement
+le théorème de Bayes. Il faut appliquer le théorème à ses tokens. Pour notre
+algorithme, on va établir que la probabilité qu'a un document d'appartenir à
+une catégorie est égale à la moyenne des probabilités qu'ont ses tokens
+d'appartenir à la catégorie. On pose donc:
+
+\begin{equation}
+    \forall (d_i, c_i) \in D \times C,\ 
+    \phi(d_i, c_i)
+    = \sum_{t_j}^{|d_i|} (P(t_j | d_i) P(c_i | t_j))
+\end{equation}
+
+On applique le théorème de Bayes:
+
+\begin{equation}
+    \forall (c_i, t_j) \in C \times T,\ 
+    P(c_i| t_j)
+    = \frac{P(t_j | c_i) P(c_i)}{P(t_j)}
+\end{equation}
+
+On obtient:
+
+\begin{equation}\label{eq:final_prob}
+    \forall (d_i, c_i) \in D \times C,\ 
+    \phi(d_i, c_i)
+    = \sum_{t_j}^{|d_i|} \frac{P(t_j | d_i) P(t_j | c_i) P(c_i)}{P(t_j)}
+\end{equation}
+
+Pour calculer cela, on va avoir besoin de remplacer les probabilité par des
+nombres d'occurrences de tokens. On pose:
+
+$n_{tokens \in T} = |T|$ le nombre total de tokens différents (dans la base de
+données).
+
+$n_{t_i \in T}$ le nombre total d'occurrences du token $t_i$ (dans la base de
+données).
+
+$n_{tokens \in c_i}$ le nombre de tokens différents dans la catégorie $c_i$
+(dans la base de données).
+
+$n_{t_i \in c_i}$ le nombre d'occurrences du token $t_i$ dans la catégorie
+$c_i$ (dans la base de données).
+
+$n_{tokens \in d_i} = |d_i|$ le nombre de tokens différents dans le document $d_i$.
+
+$n_{t_i \in d_i}$ le nombre d'occurrences du token $t_i$ dans le document
+$d_i$.
+
+L'équation (\ref{eq:final_prob}) donne donc:
+
+\begin{eqnarray}\label{eq:final}
+    \forall (d_i, c_i) \in D \times C,\ 
+    \phi(d_i, c_i)
+    &=& \sum_{t_j}^{|d_i|} (
+        \frac{n_{t_j \in d_i}}{n_{tokens \in d_i}}
+        \frac{n_{t_j \in c_i}}{n_{tokens \in c_i}}
+        \frac{n_{tokens \in c_i}}{n_{tokens \in T}}
+        \frac{n_{tokens \in T}}{n_{t_j \in T}}
+    ) \nonumber \\
+    &=& \sum_{t_j}^{|d_i|} (
+        \frac{n_{t_j \in d_i}}{n_{tokens \in d_i}}
+        \frac{n_{t_j \in c_i}}{n_{t_j \in T}}
+    ) \nonumber \\
+    &=& \frac{1}{n_{tokens \in d_i}}
+        \sum_{t_j}^{|d_i|}
+        \frac{n_{t_j \in d_i} n_{t_j \in c_i}}{n_{t_j \in T}}
+\end{eqnarray}
+
+L'équation (\ref{eq:final}) finale est relativement simple et directement
+utilisable dans une application pour calculer la probabilité qu'a un document
+d'appartenir à une catégorie.
+
+Lors de l'entraînement de l'application, c'est-à-dire lorsqu'on assigne
+manuellement des documents aux catégories, il suffira de stocker le nombre
+d'occurrences de chaque token pour chaque catégorie (le nombre de total
+d'occurrences d'un token peut alors être retrouvé par la sommes des nombres
+d'occurrences dans les catégories).
 
 
 \section{Our application}
+
 \subsection{Quick overview}
+
 \subsection{Features}
 
 Sorting documents is not a one step process. We decided to go for texts
 stemming and tokenization. Therefore, we tried to find existing solutions that
 would help us to do so.
+
+\subsubsection{Tokenization}
 
 \subsubsection{Stemming}
 
@@ -164,6 +289,11 @@ document has to be sorted. It is possible to chose tokens maximum length,
 stop words (words that may not be significants, such as common articles or
 pronouns for exemple) or words minimum length (to exclude short prepositions
 for instance).
+
+\subsubsection{RESTful API}
+
+\subsubsection{DBMS}
+
 
 \subsection{Some tests}
     
