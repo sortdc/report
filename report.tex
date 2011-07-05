@@ -83,6 +83,7 @@ makes it possible for instance to categorize blogs articles, detect the
 language of texts written by different users on a website or to determine
 wether or not a comment or an inscription form is a spam.
 
+
 \section{Studied technologies}
 
 \subsection{Existing solutions}
@@ -278,7 +279,8 @@ and the word "cooking" belong to the same category for instance.
 
 Various open source applications use stemming, but a lot of them use it for
 a specific purpose in a specific language (for instance, Sphinx
-full-text-search). Snowball Stemmer, on the other hand, has specialized in
+full-text-search). Snowball\footnote{\url{http://snowball.tartarus.org/}},
+on the other hand, has specialized in
 stemming text documents only and provides a very complete set of supported
 languages (more than 15 latin languages).
 
@@ -322,7 +324,7 @@ given by \textit{Content-Type} and
 \textit{Accept} headers.
 
 To calculate categories probabilities for an untrained document, we simply
-call http://localhost:1337/classifiers/\{classifier\_id\}/categories with the
+call \\ http://localhost:1337/classifiers/\{classifier\_id\}/categories with the
 GET method and give the text in text/plain, XML or JSON format right after the
 HTTP headers.
 
@@ -337,6 +339,10 @@ using stemming, wether or not it should use words as tokens,  words minimum
 length to be included in the classification process, tokens maximum length,
 the kind of tokens it should extract (n-grams words or characters) and a list
 or path to a file listing different stop words.
+
+L'application est pour l'instant compatible avec MySQL\footnote{\url{http://www.mysql.com/}}
+(InnoDB) et MongoDB\footnote{\url{http://www.mongodb.org/}}. Nous avons choisi
+d'utiliser MongoDB pour sa flexibilité et sa scalabilité.
 
 \subsection{Some tests}
     
@@ -375,8 +381,23 @@ still be improved. Perfecting SortDC is our next objective.
 \section*{Bibliography}
 \addcontentsline{toc}{section}{Bibliography}
 
+\textbf{Machine Learning in Automated Text Categorization} \\
+\url{http://arxiv.org/pdf/cs.ir/0110053} \\
+~\\
+\textbf{Bayes' Thoerem} \\
+\url{http://en.wikipedia.org/wiki/Bayes'_theorem} \\
+~\\
+\textbf{Classification supervisée de documents} \\
+\url{http://docs.happycoders.org/orgadoc/artifical_intelligence/classification_documents/classification.pdf} \\
+~\\
+\textbf{Cours Recherche d'Information - Analyse et Indexation des documents et des requêtes} \\
+\url{http://www.iro.umontreal.ca/~nie/IFT6255/Indexation.html} \\
+~\\
+\textbf{Linguistique computationnelle : pourquoi, comment ?} \\
+\url{http://www.labri.fr/perso/mery/aide-m\%C3\%A9moire-tal.pdf} \\
+~\\
 \textbf{RESTful} \\
-\url{http://en.wikipedia.org/wiki/Representational\_State\_Transfer\#RESTful\_web\_services}
+\url{http://en.wikipedia.org/wiki/Representational_State_Transfer#RESTful_web_services} \\
 
 
 \end{document}
