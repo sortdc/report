@@ -157,10 +157,10 @@ algorithm.
 
 \subsection{Considerations}
 
-We chose Bayes theorem for our application for it is the most used method for
+We chose Bayes' theorem for our application for it is the most used method for
 classification programms and it consumes a lot less server ressources.
 
-Bayes theorem usages can strongly vary depending on its interpretation.
+Bayes' theorem usages can strongly vary depending on its interpretation.
 Consequently, the calculations complexity and the results can be very
 different.
 
@@ -176,7 +176,7 @@ words or letters.
 
 \subsection{Bayes' theorem}
 
-Bayes theorem simple form, that we will be using, is the following :
+Bayes' theorem simple form, that we will be using, is the following :
 
 \begin{equation}
     P(A| B) = \frac{P(B | A) P(A)}{P(B)}
@@ -200,7 +200,7 @@ Let's define the function $\phi : D \times C \rightarrow P$ that will assign
 a probability to each couple
 $(d_i, c_i) \in D \times C$.
 
-A document being most of the time unique, we cannot apply Bayes theorem
+A document being most of the time unique, we cannot apply Bayes' theorem
 directly. We have to apply it to its tokens. For our algorithm, we will
 establish that the probability that a document has to belong to a category
 equals the average probability that its tokens have to belong to that
@@ -212,7 +212,7 @@ category. Thus, we have:
     = \sum_{j=1}^{|d_i|} (P(t_j | d_i) P(c_i | t_j))
 \end{equation}
 
-We apply Bayes theorem:
+We apply Bayes' theorem:
 
 \begin{equation}
     \forall (c_i, t_j) \in C \times T,\ 
@@ -366,9 +366,9 @@ length to be included in the classification process, tokens maximum length,
 the kind of tokens it should extract (n-grams words or characters) and a list
 or path to a file listing different stop words.
 
-L'application est pour l'instant compatible avec MySQL\footnote{\url{http://www.mysql.com/}}
-(InnoDB) et MongoDB\footnote{\url{http://www.mongodb.org/}}. Nous avons choisi
-d'utiliser MongoDB pour sa flexibilité et sa scalabilité.
+The application is currently compatible with MySQL\footnote{\url{http://www.mysql.com/}}
+(InnoDB) and MongoDB\footnote{\url{http://www.mongodb.org/}}. We chose to use
+MongoDB for its flexibility and scalability.
 
 \subsection{Some tests}
     
@@ -389,6 +389,16 @@ The accuracy rate for the sorting part was 81.5\%.
 
 
 \section*{Conclusion}
+
+Though powerful tools exist to organize text contents, most of them do not
+match today's needs. Indeed, anyone can now generate a significant amount
+of digitize data and organizing them quickly becomes essential.
+
+Concerning our expectations, most of them have been reached. The application
+works, provides a REST API, is easy to configure and works with 2 different
+DBMS. As we saw in the tests we drove, the classification process speed can
+still be improved. Perfecting SortDC is our next objective.
+
 \addcontentsline{toc}{section}{Conclusion}
 
 
