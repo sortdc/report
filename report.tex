@@ -88,11 +88,12 @@ wether or not a comment or an inscription form is a spam.
 
 \subsection{Existing solutions}
 
-We tried a couple of existing applications before programming our own :
+We tried a couple of existing applications before programming our own, mainly:
 
 \subsubsection{Apache Mahout}
 
-Apache Mahout is an Open Source tool distributed by the Apache community.
+Apache Mahout\footnote{\url{http://mahout.apache.org/}} is an Open Source tool
+distributed by the Apache community.
 It was designed to be scalable and provides implementations of multiple
 algorithms used in machine learning such as K-means, Naive Bayes classifier,
 key words, and so on.
@@ -114,6 +115,31 @@ development, and industrial applications.
 The Open Source version of RapidMiner, called «~Community Edition~», is very
 limited (a lot less fonctionnalities than in its non-free version) and cannot
 be used as a commercial application.
+
+\subsubsection{GATE}
+
+GATE\footnote{\url{http://gate.ac.uk/}} is an open source software «~capable
+of solving almost any text processing problem~». C'est un puissant outil de
+text mining, mais pas facile à installer et configurer si on souhaite un
+serveur de catégorisation avec une API.
+
+\subsubsection{Textimate}
+
+Textimate\footnote{\url{http://textimate.me/}} est un service web qui propose
+une API permettant d'entraîner et de requêter des classifiers pour catégoriser
+des textes et faire de la détection de spams. Le code source est propriétaire
+(non accessible) et le service est payant à partir de 500 requêtes par mois.
+
+\subsubsection{uClassify}
+
+uClassify\footnote{\url{http://www.uclassify.com/}} est un service web gratuit
+qui propose une API permettant d'entraîner et de requêter des classifiers pour
+catégoriser des textes, faire de la détection de spams, ou détecter le gender,
+l'âge, ou encore le mood de l'auteur d'un texte.
+
+Bien que l'utilisation de l'API soit gratuite, le code source est propriétaire,
+il fonctionne sur la plateforme Windows. uClassify propose des licences
+payantes pour l'installation d'une instance serveur privée.
 
 \subsection{Feedback}
 
