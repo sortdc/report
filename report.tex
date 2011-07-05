@@ -115,10 +115,16 @@ The Open Source version of RapidMiner, called «~Community Edition~», is very
 limited (a lot less fonctionnalities than in its non-free version) and cannot
 be used as a commercial application.
 
-\subsection{Our selection}
+\subsection{Feedback}
 
-We have not been able to find any Open Source software matching all our
-expectations.
+We haven't been able to find any Open Source software matching all our
+expectations. The ones we found were too complicated, too heavy or did not
+match the Open Source requirement.
+
+We therefore decided to work on our own application, our aim being providing
+a free, intuitive, easy to configure application as light as possible. Our
+very first concern has then been to find an efficient classification
+algorithm.
 
 
 \section{Bayes classifier}
@@ -169,8 +175,8 @@ a probability to each couple
 $(d_i, c_i) \in D \times C$.
 
 A document being most of the time unique, we cannot apply Bayes theorem
-directly. We have to apply it to its tokens. For our algorithm, we are going
-to establish that the probability that a document has to belong to a category
+directly. We have to apply it to its tokens. For our algorithm, we will
+establish that the probability that a document has to belong to a category
 equals the average probability that its tokens have to belong to that
 category. Thus, we have:
 
