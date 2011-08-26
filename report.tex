@@ -193,12 +193,12 @@ $T = \{t_1, ..., t_{|T|}\}$ all tokens from all documents stored in the database
 
 $D = \{d_1, ..., d_{|D|}\}$ all documents stored in the database
 
-$d_i = \{t_1, ..., t_{|d_i|}\}$ all tokens from a document $d_i$
+$d = \{t_1, ..., t_{|d|}\}$ all tokens from a document $d$
 ~\\
 
 Let's define the function $\phi : D \times C \rightarrow P$ that will assign
 a probability to each couple
-$(d_i, c_i) \in D \times C$.
+$(d, c) \in D \times C$.
 
 A document being most of the time unique, we cannot apply Bayes' theorem
 directly. We have to apply it to its tokens. For our algorithm, we will
@@ -207,25 +207,25 @@ equals the average probability that its tokens have to belong to that
 category. Thus, we have:
 
 \begin{equation}
-    \forall (d_i, c_i) \in D \times C,\ 
-    \phi(d_i, c_i)
-    = \sum_{j=1}^{|d_i|} (P(t_j | d_i) P(c_i | t_j))
+    \forall (d, c) \in D \times C,\ 
+    \phi(d, c)
+    = \sum_{i=1}^{|d|} (P(t_i | d) P(c | t_i))
 \end{equation}
 
 We apply Bayes' theorem:
 
 \begin{equation}
-    \forall (c_i, t_j) \in C \times T,\ 
-    P(c_i| t_j)
-    = \frac{P(t_j | c_i) P(c_i)}{P(t_j)}
+    \forall (c, t) \in C \times T,\ 
+    P(c| t)
+    = \frac{P(t | c) P(c)}{P(t)}
 \end{equation}
 
 We get:
 
 \begin{equation}\label{eq:final_prob}
-    \forall (d_i, c_i) \in D \times C,\ 
-    \phi(d_i, c_i)
-    = \sum_{j=1}^{|d_i|} \frac{P(t_j | d_i) P(t_j | c_i) P(c_i)}{P(t_j)}
+    \forall (d, c) \in D \times C,\ 
+    \phi(d, c)
+    = \sum_{i=1}^{|d|} \frac{P(t_i | d) P(t_i | c) P(c)}{P(t_i)}
 \end{equation}
 
 To calculate this, we will need to replace probabilities with tokens number of
@@ -237,34 +237,34 @@ database.
 $n_{t_i \in T}$ the total number of occurence of token $t_i$ stored in the
 database.
 
-$n_{tokens \in c_i}$ the number of different tokens in category $c_i$ stored
+$n_{tokens \in c}$ the number of different tokens in category $c$ stored
 in the database.
 
-$n_{t_i \in c_i}$ the number of occurences of token $t_i$ in category $c_i$
+$n_{t_i \in c}$ the number of occurences of token $t_i$ in category $c$
 in the database.
 
-$n_{tokens \in d_i} = |d_i|$ the number of different tokens in document $d_i$.
+$n_{tokens \in d} = |d|$ the number of different tokens in document $d$.
 
-$n_{t_i \in d_i}$ the number of occurences of token $t_i$ in document $d_i$.
+$n_{t_i \in d}$ the number of occurences of token $t_i$ in document $d$.
 
 The equation (\ref{eq:final_prob}) leads to:
 
 \begin{eqnarray}\label{eq:final}
-    \forall (d_i, c_i) \in D \times C,\ 
-    \phi(d_i, c_i)
-    &=& \sum_{j=1}^{|d_i|} (
-        \frac{n_{t_j \in d_i}}{n_{tokens \in d_i}}
-        \frac{n_{t_j \in c_i}}{n_{tokens \in c_i}}
-        \frac{n_{tokens \in c_i}}{n_{tokens \in T}}
-        \frac{n_{tokens \in T}}{n_{t_j \in T}}
+    \forall (d, c) \in D \times C,\ 
+    \phi(d, c)
+    &=& \sum_{i=1}^{|d|} (
+        \frac{n_{t_i \in d}}{n_{tokens \in d}}
+        \frac{n_{t_i \in c}}{n_{tokens \in c}}
+        \frac{n_{tokens \in c}}{n_{tokens \in T}}
+        \frac{n_{tokens \in T}}{n_{t_i \in T}}
     ) \nonumber \\
-    &=& \sum_{j=1}^{|d_i|} (
-        \frac{n_{t_j \in d_i}}{n_{tokens \in d_i}}
-        \frac{n_{t_j \in c_i}}{n_{t_j \in T}}
+    &=& \sum_{i=1}^{|d|} (
+        \frac{n_{t_i \in d}}{n_{tokens \in d}}
+        \frac{n_{t_i \in c}}{n_{t_i \in T}}
     ) \nonumber \\
-    &=& \frac{1}{n_{tokens \in d_i}}
-        \sum_{j=1}^{|d_i|}
-        \frac{n_{t_j \in d_i} n_{t_j \in c_i}}{n_{t_j \in T}}
+    &=& \frac{1}{n_{tokens \in d}}
+        \sum_{i=1}^{|d|}
+        \frac{n_{t_i \in d} n_{t_i \in c}}{n_{t_i \in T}}
 \end{eqnarray}
 
 The final equation (\ref{eq:final}) is pretty simple and directly usable in
